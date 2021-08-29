@@ -1,85 +1,15 @@
-class TicTacToe {
+class Board {
   constructor() {
     this.board = [
-      [null, null, null],
-      [null, null, null],
-      [null, null, null],
+      ['o', 'o', 'x'],
+      ['x', 'o', 'x'],
+      ['o', 'x', 'x'],
     ];
-    this.player1 = 'x';
-    this.player2 = 'o';
+    this.x = 'x';
+    this.o = 'o';
 
-    this.currentPlayerTurn = 'player1';
-    //================================
     this.finished = false;
-    this.draw = false;
-    this.winner = false;
-  }
-
-  getCurrentPlayerSymbol() {
-    let currentPlayerSymbol = this[this.currentPlayerTurn];
-    return currentPlayerSymbol.toString();
-  }
-
-  getFieldValue(rowIndex, colIndex) {
-    return this.board[rowIndex][colIndex];
-  }
-
-  nextTurn(rowIndex, columnIndex) {
-    // if (this.noMoreTurns() === true || this.isFinished() === true) {
-    //   this.status = `Finished!`;
-    //   const winner = this.getWinner();
-    //   const draw = this.isDraw();
-    //   const finished = this.isFinished();
-    //   return `FINISH CONDITION TRIGERED`;
-    // }
-    // insert new value
-    // this.gameBoard[rowIndex][columnIndex] = null;
-    if (this.board[rowIndex][columnIndex] !== null) {
-      return;
-    }
-    this.board[rowIndex][columnIndex] = this.getCurrentPlayerSymbol();
-    this.checkGameStatus();
-    //chane player
-    this.currentPlayerTurn =
-      this.currentPlayerTurn === 'player1' ? 'player2' : 'player1';
-  }
-
-  isFinished() {
-    if (this.getWinner() === null || this.isDraw() === false) {
-      return null;
-    } else {
-      this.finished = true;
-      return this.getWinner();
-    }
-  }
-
-  checkGameStatus() {
-    if (
-      this.noMoreTurns() === true ||
-      this.isDraw() === true ||
-      this.getWinner() !== null ||
-      this.finished !== true
-    ) {
-      return this.getWinner();
-    } else {
-      // console.table(this.gameBoard);
-    }
-  }
-
-  noMoreTurns() {
-    if (this.board.flat().includes(null) === false) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  isDraw() {
-    if (this.noMoreTurns() === true && this.getWinner() === null) {
-      return true;
-    } else {
-      return false;
-    }
+    this.winner = null;
   }
 
   checkHorizontals(playerSymbol) {
@@ -164,19 +94,27 @@ class TicTacToe {
     return !!result;
   }
 
-  getWinner(recivedSym = this.getCurrentPlayerSymbol()) {
+  getWinner(recivedSym) {
     const matches = [
       this.checkHorizontals(recivedSym),
       this.checkVericals(recivedSym),
       this.checkDiagonals(recivedSym),
     ];
 
-    const hasWinner = !!matches.filter((value) => {
+    return !!matches.filter((value) => {
       return value === true;
     }).length;
-
-    return hasWinner ? this.getCurrentPlayerSymbol() : null;
   }
 }
 
-module.exports = TicTacToe;
+// let diagV = new Board();
+// console.log(diagV.getWinner('x'));
+// console.log(diagV.checkDiagonals('o'));
+
+// let vertivalV = new Board();
+
+// console.log(vertivalV.checkVericals());
+
+// let horizw = new Board();
+
+// console.log(horizw.checkHorizontals());
