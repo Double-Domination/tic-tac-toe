@@ -1,8 +1,8 @@
 class Board {
   constructor() {
     this.board = [
-      ['o', 'o', 'x'],
-      ['x', 'o', 'x'],
+      [null, 'x', 'o'],
+      ['x', 'o', 'o'],
       ['o', 'x', 'x'],
     ];
     this.x = 'x';
@@ -107,8 +107,8 @@ class Board {
   }
 }
 
-// let diagV = new Board();
-// console.log(diagV.getWinner('x'));
+let diagV = new Board();
+console.log(diagV.getWinner('o'));
 // console.log(diagV.checkDiagonals('o'));
 
 // let vertivalV = new Board();

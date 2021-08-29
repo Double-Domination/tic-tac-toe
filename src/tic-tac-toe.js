@@ -25,44 +25,50 @@ class TicTacToe {
   }
 
   nextTurn(rowIndex, columnIndex) {
-    // if (this.noMoreTurns() === true || this.isFinished() === true) {
-    //   this.status = `Finished!`;
-    //   const winner = this.getWinner();
-    //   const draw = this.isDraw();
-    //   const finished = this.isFinished();
-    //   return `FINISH CONDITION TRIGERED`;
-    // }
-    // insert new value
-    // this.gameBoard[rowIndex][columnIndex] = null;
     if (this.board[rowIndex][columnIndex] !== null) {
       return;
     }
     this.board[rowIndex][columnIndex] = this.getCurrentPlayerSymbol();
-    this.checkGameStatus();
+    // this.checkGameStatus();
     //chane player
-    this.currentPlayerTurn =
-      this.currentPlayerTurn === 'player1' ? 'player2' : 'player1';
+    // if (this.noMoreTurns() === true) {
+    //   return false;
+    // }
+
+    // if (this.getWinner() !== null) {
+    //   return false;
+    // }
+
+    // if (this.isDraw()) {
+    //   return false;
+    // }
+
+    if (this.isFinished() === true) {
+    } else {
+      this.currentPlayerTurn =
+        this.currentPlayerTurn === 'player1' ? 'player2' : 'player1';
+    }
   }
 
   isFinished() {
-    if (this.getWinner() === null || this.isDraw() === false) {
-      return null;
+    if (
+      this.getWinner() === null &&
+      this.isDraw() === false &&
+      this.noMoreTurns() === false
+    ) {
+      return false;
     } else {
-      this.finished = true;
-      return this.getWinner();
+      return this.getWinner() ? true : true;
     }
   }
 
   checkGameStatus() {
-    if (
-      this.noMoreTurns() === true ||
-      this.isDraw() === true ||
-      this.getWinner() !== null ||
-      this.finished !== true
-    ) {
+    if (this.getWinner() !== null) {
       return this.getWinner();
-    } else {
-      // console.table(this.gameBoard);
+    }
+
+    if (this.noMoreTurns() === true) {
+      return this.isDraw();
     }
   }
 
@@ -170,12 +176,13 @@ class TicTacToe {
       this.checkVericals(recivedSym),
       this.checkDiagonals(recivedSym),
     ];
+    // console.table(matches);
 
     const hasWinner = !!matches.filter((value) => {
       return value === true;
     }).length;
 
-    return hasWinner ? this.getCurrentPlayerSymbol() : null;
+    return hasWinner ? recivedSym : null;
   }
 }
 

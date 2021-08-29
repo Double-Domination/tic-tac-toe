@@ -2208,7 +2208,6 @@ describe('TicTacToe', () => {
       expect(game.getWinner()).to.equal(null);
 
       game.nextTurn(0, 2);
-
       expect(game.getWinner()).to.equal('o');
 
       game = new TicTacToe();
